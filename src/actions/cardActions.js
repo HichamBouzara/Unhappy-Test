@@ -13,7 +13,7 @@ import {
 export const getCards = (page) => dispatch => {
   dispatch(setCardsLoading())
   axios
-    .get(`/api/products?page=${page}`)
+    .get(`https://testfrontforapi.herokuapp.com/api/products?page=${page}`)
     .then(res =>
       dispatch({
         type: GET_CARDS,

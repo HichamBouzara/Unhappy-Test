@@ -26,7 +26,7 @@ export default function (state = initialState, action) {
     case GET_CARD:
       return {
         ...state,
-        fabricant: action.payload,
+        card: action.payload,
         loading: false
       };
     default:
