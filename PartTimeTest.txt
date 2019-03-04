@@ -1,0 +1,19 @@
+hichem, I hope ur doing great, kikim just finished setting up an api just for the test,
+ here are the links needed:
+https://testfrontforapi.herokuapp.com/api/products?page={numéro de la page}
+https://testfrontforapi.herokuapp.com/api/product/{id_product}
+
+the first is to get a collection of 9 products to show in a single page, 
+there are 12 pages in the database, 
+the second link is to single out a specific product
+using its id, the id used is incremental from 1 I think, the test is to show products 
+in a page structure pretty much like google search or better yet ouedkniss, 
+and when you click on a product it gives you more details such as a larger picture and 
+description, use whatever layout you think is best.
+Thank you for doing this bro 👊
+PS: to access pictures: 
+https://testfrontforapi.herokuapp.com/images/{image_file_name_with_extension}
+kikimTest--7.8hg45;Z0h6GfOm5U_HTkG3sX
+le nom te3ou f l header request : token
+
+I hoped I would be less busy these past days but I had some personal projects that took longer than I thought, hadawin ra7 nakhdem 3la test :D will be done by tomorrow I hope
