@@ -1,13 +1,16 @@
 import {
   GET_CARDS,
   GET_CARD,
-  CARDS_LOADING
+  CARDS_LOADING,
+  CARD_LOADING
 } from '../actions/types';
 
 const initialState = {
   cards: [],
   card: {},
-  loading: false
+  loading: false,
+  cardLoading: false,
+  modal: false
 };
 
 export default function (state = initialState, action) {
@@ -16,6 +19,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         loading: true
+      };
+    case CARD_LOADING:
+      return {
+        ...state,
+        cardLoading: true
       };
     case GET_CARDS:
       return {

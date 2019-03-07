@@ -1,26 +1,22 @@
 import React, { Component } from 'react'
 import {
     Card, CardImg, CardText, CardBody,
-    CardTitle, CardSubtitle, Button
+    CardTitle, Button
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
-class Product extends Component {
+
+class ProductCard extends Component {
     constructor(props) {
-        super(props)
-        const { card } = this.props;
+        super(props);
         this.state = {
-            id: card.id,
-            name: card.name,
-            description: card.description,
-            image: card.image
+            card: this.props.card
         }
-
 
     }
 
-
     render() {
-        const { id, name, description, image } = this.state;
+        const { id, name, description, image } = this.state.card;
         return (
             <div className="col-md-4 mb-4">
                 <Card key={id}>
@@ -28,7 +24,7 @@ class Product extends Component {
                     <CardBody>
                         <CardTitle>{name}</CardTitle>
                         <CardText>{description}</CardText>
-                        <Button onClick={() => this.props.handleSeeMore(id)}>See more</Button>
+                        <Link to={`/product/${id}`}><Button>See more</Button></Link>
                     </CardBody>
                 </Card>
             </div>
@@ -36,5 +32,5 @@ class Product extends Component {
     }
 }
 
-export default Product;
+export default ProductCard;
 

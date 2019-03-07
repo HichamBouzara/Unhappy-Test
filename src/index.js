@@ -5,6 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import axios from 'axios'
 
+axios.defaults.baseURL = 'https://testfrontforapi.herokuapp.com';
 axios.defaults.headers.common['token'] = "kikimTest--7.8hg45;Z0h6GfOm5U_HTkG3sX";
 
 ReactDOM.render(<App />, document.getElementById('root'));
