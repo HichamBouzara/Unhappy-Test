@@ -39,7 +39,7 @@ class Product extends Component {
             <div className="container">
               <div className="animated fadeIn">
                 <Row>
-                  <Col xl={6}>
+                  <Col xl={12}>
                     <Spinner />;
                   </Col>
                 </Row>

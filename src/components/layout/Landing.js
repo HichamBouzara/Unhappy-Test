@@ -11,33 +11,17 @@ class Landing extends Component {
     super();
     this.state = {
       product: null,
-      modal: false
+      pageNum: 1
     }
-
-    this.openModal = this.openModal.bind(this);
-    this.toggle = this.toggle.bind(this);
+    this.reloadPage = this.reloadPage.bind(this);
   }
   componentDidMount() {
-    this.props.getCards(1);
-    console.log("did mount");
+    this.props.getCards(this.state.pageNum);
   }
 
-  toggle() {
-    this.setState(prevState => ({
-      modal: !prevState.modal
-    }));
-  }
-
-  openModal(id) {
-    const { card, cardLoading } = this.props.cards;
-    this.props.getCard(id);
-    if (!cardLoading) {
-      this.setState({
-        product: card
-      });
-      console.log(this.state.product);
-      this.toggle();
-    }
+  reloadPage(pageNum) {
+    this.setState({ pageNum });
+    this.props.getCards(this.state.pageNum);
   }
 
   render() {
@@ -46,10 +30,10 @@ class Landing extends Component {
       return (
         <div className="landing">
           <div className="album py-5 bg-light">
-            <div className="container">
-              <div className="animated fadeIn">
+            <div className="container h-100">
+              <div className="h-100 animated fadeIn">
                 <Row>
-                  <Col xl={6}>
+                  <Col xl={12}>
                     <Spinner />;
                   </Col>
                 </Row>
@@ -59,48 +43,55 @@ class Landing extends Component {
         </div>
       )
     } else {
+
+      //PAGINATION style
+      const firstPage = (this.state.pageNum === 1);
+      let page1Active = ["page-item"];
+      let page1Disabled = ["page-item"];
+      let page2Active = ["page-item"];
+      let pageN2 = this.state.pageNum;
+      let pageN1 = pageN2 - 1;
+      if (firstPage) {
+        page1Active.push("active");
+        page1Disabled.push("disabled");
+        pageN1 = 1;
+        pageN2 = 2;
+      } else {
+        page2Active.push("active");
+      }
+      //PAGINATION style END
       return (
         <div className="landing">
-          {/* MODAL */}
-          {/* <div>
-            <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-              <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
-              <ModalBody>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-              </ModalBody>
-              <ModalFooter>
-                <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
-                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-              </ModalFooter>
-            </Modal>
-          </div> */}
-          {/* End of MODAL */}
           <div className="album py-5 bg-light">
             <div className="container">
               <div className="row">
                 {cards.map(card => (
                   <ProductCard
                     card={card}
-                    handleSeeMore={this.openModal}
                   />
                 ))}
               </div>
               {/* PAGINATION */}
-              <nav aria-label="...">
-                <ul className="pagination">
-                  <li className="page-item disabled">
-                    <a className="page-link" href="#" tabIndex="-1" aria-disabled="true">Previous</a>
-                  </li>
-                  <li className="page-item"><a className="page-link" href="#">1</a></li>
-                  <li className="page-item active" aria-current="page">
-                    <a className="page-link" href="#">2 <span className="sr-only">(current)</span></a>
-                  </li>
-                  <li className="page-item"><a className="page-link" href="#">3</a></li>
-                  <li className="page-item">
-                    <a className="page-link" href="#">Next</a>
-                  </li>
-                </ul>
-              </nav>
+              <Row>
+                <Col xl={12}>
+                  <nav aria-label="...">
+                    <ul className="pagination list-inline">
+                      <li className={page1Disabled.join(' ')}>
+                        <p onClick={() => { if (pageN1 != 1) this.reloadPage(pageN1) }} className="page-link" tabIndex="-1" aria-disabled="true">Previous</p>
+                      </li>
+                      {/* 1 */}
+                      <li className={page1Active.join(' ')}><p onClick={() => this.reloadPage(pageN1)} className="page-link">{pageN1}</p></li>
+                      {/* 2 */}
+                      <li className={page2Active.join(' ')} aria-current="page"><p onClick={() => this.reloadPage(pageN2)} className="page-link">{pageN2} <span className="sr-only">(current)</span></p></li>
+                      {/* 3 */}
+                      <li className="page-item"><p onClick={() => this.reloadPage(pageN2 + 1)} className="page-link">{pageN2 + 1}</p></li>
+                      <li className="page-item">
+                        <p onClick={() => this.reloadPage(pageN2 + 1)} className="page-link">Next</p>
+                      </li>
+                    </ul>
+                  </nav>
+                </Col>
+              </Row>
               {/* End of PAGINATION */}
             </div>
           </div>
